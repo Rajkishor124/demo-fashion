@@ -14,6 +14,12 @@ export const products: Product[] = [
     colors: ['Blush', 'Ivory'],
     description: 'A flowing maxi dress crafted from delicate chiffon, featuring a hand-painted floral motif. Perfect for summer weddings and garden parties.',
     details: ['100% Silk Chiffon', 'Dry clean only', 'Ethically sourced materials', 'Hand-finished details'],
+    averageRating: 4.8,
+    reviewCount: 24,
+    reviews: [
+      { id: 'r1', author: 'Sophie L.', rating: 5, title: 'Absolutely breathtaking!', body: 'The fabric is so light and airy, it feels like a dream. I wore it to a wedding and received so many compliments. The fit is perfect.', date: '2024-06-15' },
+      { id: 'r2', author: 'Emily R.', rating: 4, title: 'Beautiful but delicate', body: 'This dress is stunning and the print is gorgeous. Be careful with the fabric as it is quite delicate. Otherwise, a beautiful piece.', date: '2024-06-10' },
+    ],
   },
   {
     id: '2',
@@ -26,6 +32,12 @@ export const products: Product[] = [
     colors: ['Sage', 'Cream'],
     description: 'A timeless button-down blouse in luxurious sand-washed silk. Its relaxed fit and pearlescent buttons make it a versatile wardrobe staple.',
     details: ['100% Mulberry Silk', 'Hand wash cold', 'Made in Portugal'],
+    averageRating: 5.0,
+    reviewCount: 38,
+    reviews: [
+       { id: 'r3', author: 'Jessica M.', rating: 5, title: 'Wardrobe Staple!', body: 'The quality of the silk is outstanding. It drapes beautifully and feels amazing on the skin. I have it in both colors!', date: '2024-05-20' },
+       { id: 'r4', author: 'Chloe B.', rating: 5, title: 'Perfect Blouse', body: 'This is the perfect silk blouse I have been searching for. It is so versatile, I can wear it to work or with jeans on the weekend.', date: '2024-05-12' },
+    ],
   },
   {
     id: '3',
@@ -38,6 +50,12 @@ export const products: Product[] = [
     colors: ['Beige', 'Charcoal'],
     description: 'Effortlessly chic wide-leg trousers made from a breathable linen blend. Features a high-rise waist and a comfortable, relaxed silhouette.',
     details: ['70% Linen, 30% Viscose', 'Machine wash gentle', 'Features side pockets'],
+    averageRating: 4.5,
+    reviewCount: 18,
+    reviews: [
+      { id: 'r5', author: 'Olivia P.', rating: 5, title: 'My new favorite pants', body: 'So comfortable and chic! The linen is high quality and they are perfect for summer. I want them in every color.', date: '2024-06-01' },
+      { id: 'r6', author: 'Ava G.', rating: 4, title: 'Great but wrinkles easily', body: 'I love the fit and feel of these trousers. They are very stylish. As with all linen, they do wrinkle, but it\'s worth it for the comfort.', date: '2024-05-28' },
+    ],
   },
   {
     id: '4',
@@ -50,6 +68,11 @@ export const products: Product[] = [
     colors: ['Multi', 'Lavender'],
     description: 'A stunning midi skirt featuring a unique, artisanal jacquard weave. The A-line cut flatters every figure, creating an elegant and artistic statement.',
     details: ['Cotton-blend jacquard', 'Invisible side zip', 'Made with recycled fibers'],
+    averageRating: 4.9,
+    reviewCount: 12,
+    reviews: [
+       { id: 'r7', author: 'Grace K.', rating: 5, title: 'A true work of art!', body: 'This skirt is even more beautiful in person. The texture and colors of the weave are incredible. A real statement piece.', date: '2024-06-20' },
+    ],
   },
   {
     id: '5',
@@ -62,6 +85,9 @@ export const products: Product[] = [
     colors: ['Sage', 'Beige'],
     description: 'A lightweight, versatile jacket perfect for transitional weather. Its modern, slightly oversized fit pairs perfectly with both dresses and denim.',
     details: ['Water-resistant cotton twill', 'Unlined for breathability', 'Snap button closure'],
+    averageRating: 4.7,
+    reviewCount: 9,
+    reviews: [],
   },
   {
     id: '6',
@@ -74,6 +100,9 @@ export const products: Product[] = [
     colors: ['Ivory', 'Blush'],
     description: 'An incredibly soft and cozy crewneck sweater spun from the finest Mongolian cashmere. A true investment piece for year-round comfort.',
     details: ['100% Grade-A Cashmere', 'Sustainably sourced', 'Hand wash or dry clean'],
+    averageRating: 5.0,
+    reviewCount: 42,
+    reviews: [],
   },
    {
     id: '7',
@@ -86,6 +115,9 @@ export const products: Product[] = [
     colors: ['Lavender', 'Rose'],
     description: 'A romantic midi dress with delicate accordion pleats and a flattering cinched waist. The subtle shimmer in the fabric catches the light beautifully.',
     details: ['Lightweight polyester blend', 'Fully lined', 'Concealed back zipper'],
+    averageRating: 4.6,
+    reviewCount: 15,
+    reviews: [],
   },
   {
     id: '8',
@@ -98,5 +130,8 @@ export const products: Product[] = [
     colors: ['Charcoal', 'Ivory'],
     description: 'A sculpting and smoothing bodysuit made from a premium double-layered jersey. The clean lines make it the perfect base for any outfit.',
     details: ['90% Modal, 10% Spandex', 'Snap closure at base', 'Thong back for no visible lines'],
+    averageRating: 4.9,
+    reviewCount: 31,
+    reviews: [],
   },
 ];

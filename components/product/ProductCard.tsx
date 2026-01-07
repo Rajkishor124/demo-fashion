@@ -1,3 +1,4 @@
+
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Product } from '../../types';
@@ -6,9 +7,10 @@ import { useToast } from '../../context/ToastContext';
 import PriceDisplay from './PriceDisplay';
 import Badge from '../ui/Badge';
 import IconButton from '../ui/IconButton';
+import StarRating from './StarRating';
 
 const HeartIcon = ({ filled }: { filled: boolean }) => (
-  <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill={filled ? 'currentColor' : 'none'} viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
+  <svg xmlns="http://www.w.org/2000/svg" className="h-6 w-6" fill={filled ? 'currentColor' : 'none'} viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
     <path strokeLinecap="round" strokeLinejoin="round" d="M4.318 6.318a4.5 4.5 0 010 6.364L12 20.364l7.682-7.682a4.5 4.5 0 01-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 01-6.364 0z" />
   </svg>
 );
@@ -65,6 +67,12 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
         </div>
         <div className="mt-4 text-center">
           <h3 className="font-serif text-lg text-soft-black">{product.name}</h3>
+           {product.reviewCount > 0 && (
+            <div className="flex justify-center items-center mt-1 gap-1">
+              <StarRating rating={product.averageRating} size={14} />
+              <span className="text-xs text-gray-500">({product.reviewCount})</span>
+            </div>
+          )}
           <PriceDisplay price={product.price} originalPrice={product.originalPrice} className="justify-center mt-1" />
         </div>
       </Link>

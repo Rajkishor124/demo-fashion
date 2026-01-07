@@ -5,6 +5,7 @@ import Container from '../ui/Container';
 import IconButton from '../ui/IconButton';
 import { useCart } from '../../context/CartContext';
 import { useWishlist } from '../../context/WishlistContext';
+import { useCartDrawer } from '../../context/CartDrawerContext';
 import SearchOverlay from '../common/SearchOverlay';
 
 const MenuIcon = () => (
@@ -35,49 +36,52 @@ const Header: React.FC = () => {
   const [isSearchOpen, setIsSearchOpen] = useState(false);
   const { cartCount } = useCart();
   const { wishlistCount } = useWishlist();
+  const { openCart } = useCartDrawer();
 
   const activeLinkStyle = { textDecoration: 'underline', textUnderlineOffset: '8px' };
 
   return (
     <>
-      <header className="sticky top-0 z-40 bg-cream/80 backdrop-blur-md border-b border-beige">
+      <header className="sticky top-0 z-30 bg-cream/80 backdrop-blur-md border-b border-beige">
         <Container className="flex items-center justify-between h-20">
-          <div className="md:hidden">
-            <IconButton onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}>
-              <MenuIcon />
-            </IconButton>
-          </div>
-
-          <div className="absolute left-1/2 -translate-x-1/2 md:relative md:left-0 md:translate-x-0">
+          {/* Left Group: Hamburger on mobile, Logo */}
+          <div className="flex items-center gap-4">
+            <div className="md:hidden">
+              <IconButton onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}>
+                <MenuIcon />
+              </IconButton>
+            </div>
             <Link to="/" className="font-serif text-3xl tracking-widest text-soft-black">
               DEMO
             </Link>
           </div>
 
-          <nav className="hidden md:flex items-center space-x-8">
+          {/* Centered Desktop Navigation */}
+          <nav className="hidden md:flex items-center space-x-8 absolute left-1/2 -translate-x-1/2">
             {navLinks.map((link) => (
               <NavLink
                 key={link.name}
                 to={link.path}
                 className="font-sans uppercase text-sm tracking-wider text-charcoal hover:text-soft-black transition-colors"
-                style={({ isActive }) => isActive ? activeLinkStyle : {}}
+                style={({ isActive }) => (isActive ? activeLinkStyle : {})}
               >
                 {link.name}
               </NavLink>
             ))}
           </nav>
 
+          {/* Right Group: Icons */}
           <div className="flex items-center space-x-2">
-            <IconButton className="hidden md:inline-flex" onClick={() => setIsSearchOpen(true)}><SearchIcon /></IconButton>
+            <IconButton onClick={() => setIsSearchOpen(true)}><SearchIcon /></IconButton>
             <Link to="/login"><IconButton><UserIcon /></IconButton></Link>
             <Link to="/wishlist" className="relative">
               <IconButton><HeartIcon /></IconButton>
               {wishlistCount > 0 && <span className="absolute top-0 right-0 block h-4 w-4 rounded-full bg-rose text-white text-xs text-center">{wishlistCount}</span>}
             </Link>
-            <Link to="/cart" className="relative">
+            <button onClick={openCart} className="relative">
               <IconButton><BagIcon /></IconButton>
               {cartCount > 0 && <span className="absolute top-0 right-0 block h-4 w-4 rounded-full bg-rose text-white text-xs text-center">{cartCount}</span>}
-            </Link>
+            </button>
           </div>
         </Container>
         

@@ -27,7 +27,7 @@ const Cart: React.FC = () => {
         <div className="lg:col-span-2">
           <ul className="divide-y divide-beige">
             {cart.map(item => (
-              <li key={item.id} className="flex py-6">
+              <li key={item.cartItemId} className="flex py-6">
                 <div className="h-32 w-24 flex-shrink-0 overflow-hidden">
                   <img src={item.images[0]} alt={item.name} className="h-full w-full object-cover object-center" />
                 </div>
@@ -42,11 +42,11 @@ const Cart: React.FC = () => {
                   </div>
                   <div className="flex flex-1 items-end justify-between text-sm">
                     <div className="flex items-center border border-beige">
-                      <button onClick={() => updateQuantity(item.id, item.quantity - 1)} className="px-3 py-1">-</button>
+                      <button onClick={() => updateQuantity(item.cartItemId, item.quantity - 1)} className="px-3 py-1">-</button>
                       <span className="px-3 py-1">{item.quantity}</span>
-                      <button onClick={() => updateQuantity(item.id, item.quantity + 1)} className="px-3 py-1">+</button>
+                      <button onClick={() => updateQuantity(item.cartItemId, item.quantity + 1)} className="px-3 py-1">+</button>
                     </div>
-                    <button onClick={() => removeFromCart(item.id)} type="button" className="font-medium text-rose hover:text-rose/80">Remove</button>
+                    <button onClick={() => removeFromCart(item.cartItemId)} type="button" className="font-medium text-rose hover:text-rose/80">Remove</button>
                   </div>
                 </div>
               </li>

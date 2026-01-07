@@ -11,10 +11,22 @@ export interface Product {
   colors: string[];
   description: string;
   details: string[];
+  averageRating: number;
+  reviewCount: number;
+  reviews: Review[];
+}
+
+export interface Review {
+  id: string;
+  author: string;
+  rating: number;
+  title: string;
+  body: string;
+  date: string;
 }
 
 export interface Category {
-  id: string;
+  id:string;
   name: string;
   image: string;
   productCount: number;
@@ -29,6 +41,7 @@ export interface Collection {
 }
 
 export interface CartItem extends Product {
+  cartItemId: string;
   quantity: number;
   selectedSize: string;
   selectedColor: string;

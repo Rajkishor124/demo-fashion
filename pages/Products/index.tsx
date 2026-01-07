@@ -264,7 +264,7 @@ const Products: React.FC = () => {
       {isFilterOpen && (
         <div className="fixed inset-0 z-50 flex">
           <div className="fixed inset-0 bg-black/50" onClick={() => setIsFilterOpen(false)}></div>
-          <div className="relative w-full max-w-sm bg-cream h-full overflow-y-auto p-6">
+          <div className="relative w-full max-w-sm bg-white shadow-2xl h-full overflow-y-auto p-6 animate-slideInRight">
             <div className="flex justify-end mb-4">
               <button onClick={() => setIsFilterOpen(false)} className="p-2">
                   <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12" /></svg>

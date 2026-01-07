@@ -4,8 +4,8 @@ import { CartItem, Product } from '../types';
 interface CartContextType {
   cart: CartItem[];
   addToCart: (product: Product, size: string, color: string) => void;
-  removeFromCart: (productId: string) => void;
-  updateQuantity: (productId: string, quantity: number) => void;
+  removeFromCart: (cartItemId: string) => void;
+  updateQuantity: (cartItemId: string, quantity: number) => void;
   cartCount: number;
   totalPrice: number;
 }
@@ -16,7 +16,15 @@ export const CartProvider = ({ children }: PropsWithChildren) => {
   const [cart, setCart] = useState<CartItem[]>(() => {
     try {
       const savedCart = localStorage.getItem('cart');
-      return savedCart ? JSON.parse(savedCart) : [];
+      if (savedCart) {
+        const parsedCart = JSON.parse(savedCart);
+        // Ensure cart items from older versions have a cartItemId for backward compatibility
+        return parsedCart.map((item: any) => ({
+          ...item,
+          cartItemId: item.cartItemId || `${item.id}-${item.selectedSize}-${item.selectedColor}`
+        }));
+      }
+      return [];
     } catch (error) {
       console.error("Failed to parse cart from localStorage:", error);
       return [];
@@ -29,26 +37,27 @@ export const CartProvider = ({ children }: PropsWithChildren) => {
 
   const addToCart = (product: Product, selectedSize: string, selectedColor: string) => {
     setCart(prevCart => {
-      const existingItem = prevCart.find(item => item.id === product.id && item.selectedSize === selectedSize && item.selectedColor === selectedColor);
+      const cartItemId = `${product.id}-${selectedSize}-${selectedColor}`;
+      const existingItem = prevCart.find(item => item.cartItemId === cartItemId);
       if (existingItem) {
         return prevCart.map(item =>
-          item.id === product.id && item.selectedSize === selectedSize && item.selectedColor === selectedColor
+          item.cartItemId === cartItemId
             ? { ...item, quantity: item.quantity + 1 }
             : item
         );
       }
-      return [...prevCart, { ...product, quantity: 1, selectedSize, selectedColor }];
+      return [...prevCart, { ...product, quantity: 1, selectedSize, selectedColor, cartItemId }];
     });
   };
 
-  const removeFromCart = (productId: string) => {
-    setCart(prevCart => prevCart.filter(item => item.id !== productId));
+  const removeFromCart = (cartItemId: string) => {
+    setCart(prevCart => prevCart.filter(item => item.cartItemId !== cartItemId));
   };
 
-  const updateQuantity = (productId: string, quantity: number) => {
+  const updateQuantity = (cartItemId: string, quantity: number) => {
     setCart(prevCart =>
       prevCart.map(item =>
-        item.id === productId ? { ...item, quantity: Math.max(1, quantity) } : item
+        item.cartItemId === cartItemId ? { ...item, quantity: Math.max(1, quantity) } : item
       )
     );
   };
