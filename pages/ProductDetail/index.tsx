@@ -8,6 +8,7 @@ import ProductCard from '../../components/product/ProductCard';
 import { products } from '../../data/products';
 import { useCart } from '../../context/CartContext';
 import { useWishlist } from '../../context/WishlistContext';
+import { useToast } from '../../context/ToastContext';
 import IconButton from '../../components/ui/IconButton';
 
 const HeartIcon = ({ filled }: { filled: boolean }) => (
@@ -26,6 +27,7 @@ const ProductDetail: React.FC = () => {
 
   const { addToCart } = useCart();
   const { toggleWishlist, isInWishlist } = useWishlist();
+  const { addToast } = useToast();
 
   if (!product) {
     return (
@@ -41,9 +43,17 @@ const ProductDetail: React.FC = () => {
   const handleAddToCart = () => {
     if (selectedSize && selectedColor) {
       addToCart(product, selectedSize, selectedColor);
-      // Optional: show a toast notification
+      addToast(`${product.name} added to bag`);
     } else {
       alert('Please select a size and color.');
+    }
+  };
+
+  const handleWishlistToggle = () => {
+    const wasWishlisted = isInWishlist(product.id);
+    toggleWishlist(product);
+    if (!wasWishlisted) {
+      addToast(`${product.name} saved to wishlist`);
     }
   };
 
@@ -94,7 +104,7 @@ const ProductDetail: React.FC = () => {
 
             <div className="mt-10 flex items-center gap-4">
                 <Button onClick={handleAddToCart} className="flex-1">Add to Bag</Button>
-                <IconButton onClick={() => toggleWishlist(product)}>
+                <IconButton onClick={handleWishlistToggle}>
                     <HeartIcon filled={isWishlisted} />
                 </IconButton>
             </div>

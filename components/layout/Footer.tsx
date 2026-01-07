@@ -1,8 +1,23 @@
-
 import React from 'react';
 import Container from '../ui/Container';
 import Button from '../ui/Button';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
+
+// FIX: Made the 'children' prop optional to resolve a TypeScript error where the compiler incorrectly infers that it is missing.
+const FooterLink = ({ to, children, className }: { to: string; children?: React.ReactNode; className?: string }) => {
+    const location = useLocation();
+    const handleClick = () => {
+        const fullPath = location.pathname + location.search;
+        if (fullPath === to) {
+            window.scrollTo(0, 0);
+        }
+    };
+    return (
+        <Link to={to} onClick={handleClick} className={className}>
+            {children}
+        </Link>
+    );
+};
 
 const Footer: React.FC = () => {
   return (
@@ -20,19 +35,19 @@ const Footer: React.FC = () => {
           <div>
             <h3 className="font-serif text-xl mb-4">Shop</h3>
             <ul className="space-y-2 text-sm">
-              <li><Link to="/products" className="hover:underline">All Products</Link></li>
-              <li><Link to="/collections" className="hover:underline">Collections</Link></li>
-              <li><Link to="/products?category=new" className="hover:underline">New Arrivals</Link></li>
-              <li><Link to="/products?category=sale" className="hover:underline">Sale</Link></li>
+              <li><FooterLink to="/products" className="hover:underline">All Products</FooterLink></li>
+              <li><FooterLink to="/collections" className="hover:underline">Collections</FooterLink></li>
+              <li><FooterLink to="/products?category=new" className="hover:underline">New Arrivals</FooterLink></li>
+              <li><FooterLink to="/products?category=sale" className="hover:underline">Sale</FooterLink></li>
             </ul>
           </div>
           <div>
             <h3 className="font-serif text-xl mb-4">About</h3>
             <ul className="space-y-2 text-sm">
-              <li><Link to="/about" className="hover:underline">Our Story</Link></li>
-              <li><Link to="/contact" className="hover:underline">Contact Us</Link></li>
-              <li><Link to="/faq" className="hover:underline">FAQ</Link></li>
-              <li><Link to="/shipping" className="hover:underline">Shipping & Returns</Link></li>
+              <li><FooterLink to="/about" className="hover:underline">Our Story</FooterLink></li>
+              <li><FooterLink to="/contact" className="hover:underline">Contact Us</FooterLink></li>
+              <li><FooterLink to="/faq" className="hover:underline">FAQ</FooterLink></li>
+              <li><FooterLink to="/shipping" className="hover:underline">Shipping & Returns</FooterLink></li>
             </ul>
           </div>
         </div>

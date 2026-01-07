@@ -1,5 +1,4 @@
-
-import React, { createContext, useContext, useState, ReactNode } from 'react';
+import React, { createContext, useContext, useState, PropsWithChildren, useEffect } from 'react';
 import { Product } from '../types';
 
 interface WishlistContextType {
@@ -11,8 +10,20 @@ interface WishlistContextType {
 
 const WishlistContext = createContext<WishlistContextType | undefined>(undefined);
 
-export const WishlistProvider = ({ children }: { children: ReactNode }) => {
-  const [wishlist, setWishlist] = useState<Product[]>([]);
+export const WishlistProvider = ({ children }: PropsWithChildren) => {
+  const [wishlist, setWishlist] = useState<Product[]>(() => {
+    try {
+      const savedWishlist = localStorage.getItem('wishlist');
+      return savedWishlist ? JSON.parse(savedWishlist) : [];
+    } catch (error) {
+      console.error("Failed to parse wishlist from localStorage:", error);
+      return [];
+    }
+  });
+
+  useEffect(() => {
+    localStorage.setItem('wishlist', JSON.stringify(wishlist));
+  }, [wishlist]);
 
   const toggleWishlist = (product: Product) => {
     setWishlist(prevWishlist => {

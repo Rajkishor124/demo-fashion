@@ -1,8 +1,8 @@
-
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Product } from '../../types';
 import { useWishlist } from '../../context/WishlistContext';
+import { useToast } from '../../context/ToastContext';
 import PriceDisplay from './PriceDisplay';
 import Badge from '../ui/Badge';
 import IconButton from '../ui/IconButton';
@@ -20,12 +20,17 @@ interface ProductCardProps {
 const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
   const [isHovered, setIsHovered] = useState(false);
   const { toggleWishlist, isInWishlist } = useWishlist();
+  const { addToast } = useToast();
   const isWishlisted = isInWishlist(product.id);
 
   const handleWishlistToggle = (e: React.MouseEvent) => {
     e.preventDefault();
     e.stopPropagation();
+    const wasWishlisted = isInWishlist(product.id);
     toggleWishlist(product);
+    if (!wasWishlisted) {
+      addToast(`${product.name} saved to wishlist`);
+    }
   };
 
   const isSale = product.originalPrice && product.originalPrice > product.price;

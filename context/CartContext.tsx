@@ -1,5 +1,4 @@
-
-import React, { createContext, useContext, useState, ReactNode } from 'react';
+import React, { createContext, useContext, useState, PropsWithChildren, useEffect } from 'react';
 import { CartItem, Product } from '../types';
 
 interface CartContextType {
@@ -13,8 +12,20 @@ interface CartContextType {
 
 const CartContext = createContext<CartContextType | undefined>(undefined);
 
-export const CartProvider = ({ children }: { children: ReactNode }) => {
-  const [cart, setCart] = useState<CartItem[]>([]);
+export const CartProvider = ({ children }: PropsWithChildren) => {
+  const [cart, setCart] = useState<CartItem[]>(() => {
+    try {
+      const savedCart = localStorage.getItem('cart');
+      return savedCart ? JSON.parse(savedCart) : [];
+    } catch (error) {
+      console.error("Failed to parse cart from localStorage:", error);
+      return [];
+    }
+  });
+
+  useEffect(() => {
+    localStorage.setItem('cart', JSON.stringify(cart));
+  }, [cart]);
 
   const addToCart = (product: Product, selectedSize: string, selectedColor: string) => {
     setCart(prevCart => {

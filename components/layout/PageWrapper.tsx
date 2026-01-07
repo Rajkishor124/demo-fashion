@@ -1,10 +1,9 @@
-
-import React from 'react';
+import React, { PropsWithChildren } from 'react';
 // Note: framer-motion would be added here, but for this generator it's mocked
 // with a simple div to keep dependencies minimal. In a real project, you would:
 // import { motion } from 'framer-motion';
 
-const PageWrapper = ({ children }: { children: React.ReactNode }) => {
+const PageWrapper = ({ children }: PropsWithChildren) => {
   // Mocking framer-motion's motion.div
   // In a real app, this would be:
   // <motion.div
