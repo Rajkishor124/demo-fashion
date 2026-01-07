@@ -7,16 +7,8 @@ import { useDebounce } from '../../hooks/useDebounce';
 import { products } from '../../data/products';
 import { Product } from '../../types';
 import PriceDisplay from '../product/PriceDisplay';
+import { fileToBase64 } from '../../utils/imageHelpers';
 
-// Helper function to convert a File/Blob to a base64 string
-const fileToBase64 = (file: File): Promise<string> => {
-  return new Promise((resolve, reject) => {
-    const reader = new FileReader();
-    reader.onload = () => resolve((reader.result as string).split(',')[1]);
-    reader.onerror = error => reject(error);
-    reader.readAsDataURL(file);
-  });
-};
 
 // --- ICONS ---
 const SearchIcon = () => <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 text-charcoal" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" /></svg>;

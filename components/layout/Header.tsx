@@ -7,6 +7,7 @@ import { useCart } from '../../context/CartContext';
 import { useWishlist } from '../../context/WishlistContext';
 import { useCartDrawer } from '../../context/CartDrawerContext';
 import SearchOverlay from '../common/SearchOverlay';
+import LiveLookModal from '../common/LiveLookModal';
 
 const MenuIcon = () => (
     <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M4 6h16M4 12h16m-7 6h7" /></svg>
@@ -23,6 +24,14 @@ const HeartIcon = () => (
 const BagIcon = () => (
     <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z" /></svg>
 );
+const LiveLookIcon = () => (
+    <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="1.5">
+        <path strokeLinecap="round" strokeLinejoin="round" d="M3 4a1 1 0 011-1h16a1 1 0 011 1v16a1 1 0 01-1 1H4a1 1 0 01-1-1V4z" />
+        <path strokeLinecap="round" strokeLinejoin="round" d="M12 15a3 3 0 100-6 3 3 0 000 6z" />
+        <path strokeLinecap="round" strokeLinejoin="round" d="M2 9h2m16 0h2" />
+    </svg>
+);
+
 
 const navLinks = [
   { name: 'Home', path: '/' },
@@ -34,6 +43,7 @@ const navLinks = [
 const Header: React.FC = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isSearchOpen, setIsSearchOpen] = useState(false);
+  const [isLiveLookOpen, setIsLiveLookOpen] = useState(false);
   const { cartCount } = useCart();
   const { wishlistCount } = useWishlist();
   const { openCart } = useCartDrawer();
@@ -72,14 +82,15 @@ const Header: React.FC = () => {
 
           {/* Right Group: Icons */}
           <div className="flex items-center space-x-2">
-            <IconButton onClick={() => setIsSearchOpen(true)}><SearchIcon /></IconButton>
-            <Link to="/login"><IconButton><UserIcon /></IconButton></Link>
+            <IconButton onClick={() => setIsLiveLookOpen(true)} title="Live Look"><LiveLookIcon /></IconButton>
+            <IconButton onClick={() => setIsSearchOpen(true)} title="Search"><SearchIcon /></IconButton>
+            <Link to="/login"><IconButton title="Login"><UserIcon /></IconButton></Link>
             <Link to="/wishlist" className="relative">
-              <IconButton><HeartIcon /></IconButton>
+              <IconButton title="Wishlist"><HeartIcon /></IconButton>
               {wishlistCount > 0 && <span className="absolute top-0 right-0 block h-4 w-4 rounded-full bg-rose text-white text-xs text-center">{wishlistCount}</span>}
             </Link>
             <button onClick={openCart} className="relative">
-              <IconButton><BagIcon /></IconButton>
+              <IconButton title="Shopping Bag"><BagIcon /></IconButton>
               {cartCount > 0 && <span className="absolute top-0 right-0 block h-4 w-4 rounded-full bg-rose text-white text-xs text-center">{cartCount}</span>}
             </button>
           </div>
@@ -104,6 +115,7 @@ const Header: React.FC = () => {
         )}
       </header>
       <SearchOverlay isOpen={isSearchOpen} onClose={() => setIsSearchOpen(false)} />
+      <LiveLookModal isOpen={isLiveLookOpen} onClose={() => setIsLiveLookOpen(false)} />
     </>
   );
 };
